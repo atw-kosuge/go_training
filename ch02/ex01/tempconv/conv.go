@@ -16,7 +16,7 @@ func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32) }
 func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9) }
 
 // CToK converts a Celsius temperature to Kelvin.
-func CToK(c Celsius) Kelvin { return Kelvin(c + -AbsoluteZeroC) }
+func CToK(c Celsius) Kelvin { return Kelvin(c + 273.15) }
 
 // FToK converts a Fahrenheit temperature to Kelvin.
 func FToK(f Fahrenheit) Kelvin { return Kelvin(5/9*(f-32) + 273.15) }
