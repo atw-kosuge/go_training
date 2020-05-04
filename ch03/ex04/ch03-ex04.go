@@ -16,6 +16,7 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"os/exec"
 	"strconv"
 )
 
@@ -55,6 +56,7 @@ func main() {
 		surface(w, width, height, color)
 	}
 	http.HandleFunc("/", handler)
+	exec.Command("open", "http://localhost:8000?width=640&height=320&color=ff00ff").Start()
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
