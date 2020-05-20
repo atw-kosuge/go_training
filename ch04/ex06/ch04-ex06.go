@@ -12,7 +12,7 @@ func main() {
 	flag.Parse()
 
 	if len(flag.Args()) > 0 {
-		fmt.Printf("%s\n", removeUnicodeSpace(flag.Arg(0)))
+		fmt.Printf("%s\n", compressSpace(flag.Arg(0)))
 	} else {
 		cmd := os.Args[0][strings.LastIndex(os.Args[0], "/")+1:]
 		fmt.Fprintf(os.Stderr, "Usage %s: %s string\n", cmd, cmd)
@@ -20,7 +20,7 @@ func main() {
 	}
 }
 
-func removeUnicodeSpace(s string) string {
+func compressSpace(s string) string {
 	r := []rune(s)
 	for i := 1; i < len(r); i++ {
 		if unicode.IsSpace(r[i-1]) && unicode.IsSpace(r[i]) {
