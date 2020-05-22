@@ -37,6 +37,21 @@ func countUnicode(s string) map[string]int {
 		if unicode.IsMark(r) {
 			result["Mark"]++
 		}
+		if unicode.IsNumber(r) {
+			result["Number"]++
+		}
+		if unicode.IsSpace(r) {
+			result["Space"]++
+		}
+		if unicode.IsControl(r) {
+			result["Control"]++
+		}
+		if unicode.IsLower(r) {
+			result["Lower"]++
+		}
+		if unicode.IsUpper(r) {
+			result["Upper"]++
+		}
 	}
 	return result
 }
