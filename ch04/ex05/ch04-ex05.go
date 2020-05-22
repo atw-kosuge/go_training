@@ -11,7 +11,7 @@ func main() {
 	flag.Parse()
 
 	if len(flag.Args()) > 0 {
-		fmt.Printf("%s\n", removeSameChar(flag.Arg(0)))
+		fmt.Printf("%s\n", removeSameString(flag.Args()[0:]))
 	} else {
 		cmd := os.Args[0][strings.LastIndex(os.Args[0], "/")+1:]
 		fmt.Fprintf(os.Stderr, "Usage %s: %s string\n", cmd, cmd)
@@ -29,4 +29,15 @@ func removeSameChar(s string) string {
 		}
 	}
 	return string(b)
+}
+
+func removeSameString(s []string) []string {
+	for i := 1; i < len(s); i++ {
+		if s[i-1] == s[i] {
+			copy(s[i-1:], s[i:])
+			s = s[:len(s)-1]
+			i--
+		}
+	}
+	return s
 }
