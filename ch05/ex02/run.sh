@@ -1,3 +1,3 @@
 #!/bin/bash
 
-../ex01/fetch https://www.yahoo.co.jp | go run ch05-ex02.go
+../ex01/fetch https://gopl.io | go run ch05-ex02.go
