@@ -71,3 +71,47 @@ func (s *IntSet) String() string {
 }
 
 //!-string
+
+func (s *IntSet) debugPrint(prefix string) {
+	for i, tword := range s.words {
+		fmt.Printf("%v %02d(%03d): %08b(count: %v)\n", prefix, i, i*64, tword, bitCount(tword))
+	}
+}
+
+// Len return length
+func (s *IntSet) Len() int {
+	s.debugPrint("")
+	count := 0
+	for _, tword := range s.words {
+		count += bitCount(tword)
+	}
+	return count
+}
+
+func bitCount(tword uint64) int {
+	count := 0
+	for i := 0; i < 64; i++ {
+		count += int(tword >> i & 1)
+	}
+	return count
+}
+
+// Remove value in set
+func (s *IntSet) Remove(x int) {
+	s.debugPrint("before")
+	if s.Has(x) {
+		word, bit := x/64, uint(x%64)
+		s.words[word] &= ^(1 << bit)
+	}
+	s.debugPrint("after")
+}
+
+// Clear values
+func (s *IntSet) Clear() {
+	s.words = make([]uint64, 0)
+}
+
+// Copy IntSet
+func (s *IntSet) Copy() *IntSet {
+	return &IntSet{words: append([]uint64{}, s.words...)}
+}
