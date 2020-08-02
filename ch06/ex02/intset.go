@@ -115,3 +115,10 @@ func (s *IntSet) Clear() {
 func (s *IntSet) Copy() *IntSet {
 	return &IntSet{words: append([]uint64{}, s.words...)}
 }
+
+// AddAll values to set
+func (s *IntSet) AddAll(values ...int) {
+	for _, v := range values {
+		s.Add(v)
+	}
+}

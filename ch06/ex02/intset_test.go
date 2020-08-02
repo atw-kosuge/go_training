@@ -157,3 +157,32 @@ func TestIntSet_Copy(t *testing.T) {
 		})
 	}
 }
+
+func TestIntSet_AddAll(t *testing.T) {
+	tests := []struct {
+		name string
+		init []int
+		args []int
+		want string
+	}{
+		{"初期値なし　追加値なし", []int{}, []int{}, "{}"},
+		{"初期値なし　追加値一つ", []int{}, []int{1}, "{1}"},
+		{"初期値なし　追加値二つ", []int{}, []int{1, 65}, "{1 65}"},
+		{"初期値あり　追加値なし", []int{64}, []int{}, "{64}"},
+		{"初期値あり　追加値一つ", []int{65}, []int{1}, "{1 65}"},
+		{"初期値あり　追加値二つ", []int{15, 27}, []int{1, 129}, "{1 15 27 129}"},
+		{"初期値あり　既存値", []int{1, 64, 65, 128}, []int{65, 129}, "{1 64 65 128 129}"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var s IntSet
+			for _, value := range tt.init {
+				s.Add(value)
+			}
+			s.AddAll(tt.args...)
+			if got := s.String(); got != tt.want {
+				t.Errorf("IntSet(%v).AddAll(%v) = %v, want %v", tt.init, tt.args, got, tt.want)
+			}
+		})
+	}
+}
