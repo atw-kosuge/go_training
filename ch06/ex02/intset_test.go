@@ -132,32 +132,6 @@ func TestIntSet_Clear(t *testing.T) {
 	}
 }
 
-// func TestIntSet_Copy(t *testing.T) {
-// 	tests := []struct {
-// 		name   string
-// 		values []int
-// 	}{
-// 		{"no value", []int{}},
-// 		{"one value", []int{1}},
-// 		{"two value", []int{1, 2}},
-// 		{"境界値", []int{1, 64}},
-// 		{"境界値＋１", []int{1, 65}},
-// 		{"境界値＋１　複数値", []int{1, 65, 70}},
-// 		{"複数値", []int{1, 65, 129, 192, 193}},
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			var s IntSet
-// 			for _, value := range tt.values {
-// 				s.Add(value)
-// 			}
-// 			if got := s.Copy(); !reflect.DeepEqual(got, tt.want) {
-// 				t.Errorf("IntSet.Copy() = %v, want %v", got, tt.want)
-// 			}
-// 		})
-// 	}
-// }
-
 func TestIntSet_Copy(t *testing.T) {
 	tests := []struct {
 		name   string
