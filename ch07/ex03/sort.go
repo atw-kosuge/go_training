@@ -4,12 +4,31 @@
 // See page 101.
 
 // Package treesort provides insertion sort using an unbalanced binary tree.
-package treesort
+package main
+
+import (
+	"fmt"
+	"strings"
+)
 
 //!+
 type tree struct {
 	value       int
 	left, right *tree
+}
+
+func (t *tree) String() string {
+	var buf []int
+	slice(t, &buf)
+	return strings.Trim(fmt.Sprint(buf), "[]")
+}
+
+func slice(t *tree, res *[]int) {
+	if t != nil {
+		slice(t.left, res)
+		*res = append(*res, t.value)
+		slice(t.right, res)
+	}
 }
 
 // Sort sorts values in place.
