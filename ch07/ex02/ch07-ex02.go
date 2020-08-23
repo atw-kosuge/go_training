@@ -6,20 +6,29 @@ import (
 )
 
 func main() {
-
 	w, cnt := CountingWriter(os.Stdout)
 
-	n, err := w.Write([]byte("test\n"))
+	t1 := "test abce"
+	n, err := w.Write([]byte(t1))
 	if err != nil {
 		fmt.Printf("%v", err)
 		return
 	}
-	fmt.Printf("write:%v total:%v %v\n", n, *cnt, cnt)
+	fmt.Printf(" [count:%v total:%v]\n", n, *cnt)
 
-	n, err = w.Write([]byte("test2\n"))
+	t2 := "1234567890"
+	n, err = w.Write([]byte(t2))
 	if err != nil {
 		fmt.Printf("%v", err)
 		return
 	}
-	fmt.Printf("write:%v total:%v %v\n", n, *cnt, cnt)
+	fmt.Printf(" [count:%v total:%v]\n", n, *cnt)
+
+	t3 := "12345"
+	n, err = w.Write([]byte(t3))
+	if err != nil {
+		fmt.Printf("%v", err)
+		return
+	}
+	fmt.Printf(" [count:%v total:%v]\n", n, *cnt)
 }

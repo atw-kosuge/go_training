@@ -43,22 +43,18 @@ func (c *WordCounter) Write(p []byte) (int, error) {
 }
 
 func main() {
-	//!+main
 	var c ByteCounter
-	c.Write([]byte("hello"))
-	fmt.Println(c) // "5", = len("hello")
-
-	c = 0 // reset the counter
-	var name = "Dolly"
-	fmt.Fprintf(&c, "hello, %s", name)
-	fmt.Println(c) // "12", = len("hello, Dolly")
-	//!-main
+	t1 := "This is a pen"
+	c.Write([]byte(t1))
+	fmt.Printf("%v [byte: %v]\n", t1, c)
 
 	var l LineCounter
-	l.Write([]byte("This is\na\npen"))
-	fmt.Println(l)
+	t2 := "This is\na\npen"
+	l.Write([]byte(t2))
+	fmt.Printf("%v [line: %v]\n", t2, l)
 
 	var w WordCounter
-	w.Write([]byte("This is a pen"))
-	fmt.Println(w)
+	t3 := "This is a pen"
+	w.Write([]byte(t3))
+	fmt.Printf("%v [word: %v]\n", t3, w)
 }
