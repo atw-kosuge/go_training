@@ -11,27 +11,6 @@ import (
 	"os"
 )
 
-// type CountingWriter io.Writer
-
-// var writer io.Writer
-// var counter int64
-
-// type CountingWriter struct {
-// 	writer       io.Writer
-// 	bytesWritten int
-// }
-
-// func (c CountingWriter) Write(p []byte) (int, error) {
-// 	n, err := writer.Write(p)
-// 	counter += int64(n)
-// 	return n, err
-// }
-
-// func CountingWriter(w io.Writer) (io.Writer, *int64) {
-
-// 	return CountingWriter, &counter
-// }
-
 func main() {
 
 	w, cnt := CountingWriter(os.Stdout)
