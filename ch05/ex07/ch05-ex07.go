@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -64,14 +65,34 @@ func forEachNode(n *html.Node, pre, post func(n *html.Node)) {
 var depth int
 
 func startElement(n *html.Node) {
+	// if n.Type == html.ElementNode {
+	// 	fmt.Printf("%*s<%s>\n", depth*2, "", n.Data)
+	// 	depth++
+	// }
+
 	if n.Type == html.ElementNode {
-		fmt.Printf("%*s<%s>\n", depth*2, "", n.Data)
-		depth++
+		var attribute string
+		for _, attr := range n.Attr {
+			attribute += fmt.Sprintf(" %s=%q", attr.Key, attr.Val)
+		}
+		if n.FirstChild == nil {
+			fmt.Printf("%*s<%s%s/>\n", depth*2, "", n.Data, attribute)
+		} else {
+			fmt.Printf("%*s<%s%s>\n", depth*2, "", n.Data, attribute)
+			depth++
+		}
+	} else if n.Type == html.TextNode {
+		for _, line := range strings.Split(n.Data, "\n") {
+			line = strings.TrimSpace(line)
+			if line != "" && line != "\n" {
+				fmt.Printf("%*s%s\n", depth*2, "", line)
+			}
+		}
 	}
 }
 
 func endElement(n *html.Node) {
-	if n.Type == html.ElementNode {
+	if n.Type == html.ElementNode && n.FirstChild != nil {
 		depth--
 		fmt.Printf("%*s</%s>\n", depth*2, "", n.Data)
 	}
