@@ -19,7 +19,7 @@ func main() {
 		// outline(url)
 
 		targetID := "footer"
-		elm, err := findById(url, targetID)
+		elm, err := findByID(url, targetID)
 		if err == nil {
 			fmt.Printf("%v is <%s>\n", targetID, elm.Data)
 		}
@@ -40,6 +40,7 @@ func forEachNode(n *html.Node, pre, post func(n *html.Node) bool) {
 	}
 }
 
+// ElementByID 指定IDのノードを取り出す
 func ElementByID(doc *html.Node, id string) (target *html.Node) {
 	target = nil
 	forEachNode(doc, func(doc *html.Node) bool {
@@ -54,7 +55,7 @@ func ElementByID(doc *html.Node, id string) (target *html.Node) {
 	return
 }
 
-func findById(url string, id string) (*html.Node, error) {
+func findByID(url string, id string) (*html.Node, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
