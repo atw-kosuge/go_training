@@ -38,7 +38,6 @@ func handleConn(c net.Conn) {
 				}
 			case <-aborted:
 				c.Close()
-				fmt.Println("connection closed")
 			}
 		}
 	}(c, called)
