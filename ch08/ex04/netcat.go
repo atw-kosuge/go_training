@@ -19,15 +19,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	readOnlyConn := conn.(*net.TCPConn)
+	tcpConn := conn.(*net.TCPConn)
 	done := make(chan struct{})
 	go func() {
-		io.Copy(os.Stdout, readOnlyConn) // NOTE: ignoring errors
+		io.Copy(os.Stdout, tcpConn) // NOTE: ignoring errors
 		log.Println("done")
 		done <- struct{}{} // signal the main goroutine
 	}()
-	mustCopy(readOnlyConn, os.Stdin)
-	readOnlyConn.Close()
+	mustCopy(tcpConn, os.Stdin)
+	tcpConn.CloseWrite()
 	<-done // wait for background goroutine to finish
 }
 
